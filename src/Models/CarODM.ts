@@ -1,12 +1,10 @@
-import { Schema, Model, models, model } from 'mongoose';
+import { Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
+import AbstractODM from './AbstractODM';
 
-class CarODM {
-  private _schema: Schema;
-  private _model: Model<ICar>;
-
+class CarODM extends AbstractODM<ICar> {
   constructor() {
-    this._schema = new Schema<ICar>({
+    const schema = new Schema<ICar>({
       model: { type: String, required: true },
       year: { type: Number, required: true },
       color: { type: String, required: true },
@@ -15,30 +13,29 @@ class CarODM {
       doorsQty: { type: Number, required: true },
       seatsQty: { type: Number, required: true },
     });
-
-    this._model = models.Car || model('Car', this._schema);
+    super(schema, 'Car');
   }
 
   public async createCar(car: ICar): Promise<ICar> {
-    const newCar = await this._model.create(car);
+    const newCar = await this.model.create(car);
 
     return newCar;
   }
 
   public async getAllCars(): Promise<ICar[]> {
-    const allCars = await this._model.find();
+    const allCars = await this.model.find();
 
     return allCars;
   }
 
   public async getCarById(id: string): Promise<ICar | null> {
-    const car = await this._model.findById(id);
+    const car = await this.model.findById(id);
 
     return car;
   }
 
   public async updateACar(id: string, updatedInfoOfCar: ICar) {
-    const updatedCar = await this._model.updateOne({ id }, {
+    const updatedCar = await this.model.updateOne({ id }, {
       $set: { ...updatedInfoOfCar },
     });
 
