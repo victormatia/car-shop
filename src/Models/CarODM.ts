@@ -36,6 +36,14 @@ class CarODM {
 
     return car;
   }
+
+  public async updateACar(id: string, updatedInfoOfCar: ICar) {
+    const updatedCar = await this._model.updateOne({ id }, {
+      $set: { ...updatedInfoOfCar },
+    });
+
+    return updatedCar;
+  }
 }
 
 export default CarODM;
