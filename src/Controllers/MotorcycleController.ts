@@ -11,6 +11,12 @@ class MotorcycleController {
 
     res.status(201).json(addedMotorcycle);
   };
+
+  public getAllMotorcycles: RequestHandler = async (_req, res) => {
+    const allMotorcycles = await this._service.getAllMotorcycles();
+
+    res.status(200).json(allMotorcycles);
+  };
 }
 
 export default MotorcycleController;
