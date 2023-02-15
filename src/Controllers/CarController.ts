@@ -26,6 +26,16 @@ class CarController {
 
     res.status(200).json(result);
   };
+
+  public updateACar: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    const { result, message } = await this._service.updateACar(id, body);
+
+    if (message) return res.status(404).json({ message });
+
+    res.status(200).json(result);
+  };
 }
 
 export default CarController;
