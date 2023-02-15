@@ -37,4 +37,10 @@ route.get(
   new MotorcycleController(new MotorcycleService(new MotorcycleODM())).getAllMotorcycles,
 );
 
+route.get(
+  '/motorcycles/:id',
+  ObjectId.validate,
+  new MotorcycleController(new MotorcycleService(new MotorcycleODM())).getMotorcycleById,
+);
+
 export default route;
