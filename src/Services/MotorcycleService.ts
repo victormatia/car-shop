@@ -1,5 +1,6 @@
 import Motorcycle from '../Domains/Motorcycle';
 import IMotorcycle from '../Interfaces/IMotorcycle';
+import IServiceReturn from '../Interfaces/IServiceReturn';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
 class MotorcycleService {
@@ -17,6 +18,14 @@ class MotorcycleService {
     const allMotorcycles = await this._model.getAllMotorcycles();
 
     return allMotorcycles.map((motorcycle) => new Motorcycle(motorcycle));
+  }
+
+  public async getMotorcycleById(id: string): Promise<IServiceReturn> {
+    const motorcycle = await this._model.getMotorcycleById(id);
+
+    if (motorcycle) return { result: new Motorcycle(motorcycle) };
+
+    return { message: 'Motorcycle not found' };
   }
 }
 
