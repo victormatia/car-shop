@@ -1,12 +1,14 @@
 import { expect } from 'chai';
 import { Model } from 'mongoose';
-import { stub } from 'sinon';
+import { stub, restore } from 'sinon';
 import Car from '../../../src/Domains/Car';
 import ICar from '../../../src/Interfaces/ICar';
 import CarODM from '../../../src/Models/CarODM';
 import CarService from '../../../src/Services/CarService';
 
 describe('Casos de testes de CarService', function () {
+  afterEach(restore);
+
   it('Verifica se é possível adicionar um novo carro ao banco de dados', async function () {
     // Arrange
     const input: ICar = {
