@@ -12,6 +12,12 @@ class MotorcycleService {
 
     return new Motorcycle(addedMotorcycle);
   }
+
+  public async getAllMotorcycles(): Promise<Motorcycle[]> {
+    const allMotorcycles = await this._model.getAllMotorcycles();
+
+    return allMotorcycles.map((motorcycle) => new Motorcycle(motorcycle));
+  }
 }
 
 export default MotorcycleService;
