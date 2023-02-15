@@ -32,4 +32,9 @@ route.post(
   new MotorcycleController(new MotorcycleService(new MotorcycleODM())).createMotorcycle,
 );
 
+route.get(
+  '/motorcycles',
+  new MotorcycleController(new MotorcycleService(new MotorcycleODM())).getAllMotorcycles,
+);
+
 export default route;
