@@ -17,6 +17,15 @@ class MotorcycleController {
 
     res.status(200).json(allMotorcycles);
   };
+
+  public getMotorcycleById: RequestHandler = async (req, res) => {
+    const { id } = req.params;
+    const { message, result } = await this._service.getMotorcycleById(id);
+
+    if (message) return res.status(404).json({ message });
+
+    res.status(200).json(result);
+  };
 }
 
 export default MotorcycleController;
