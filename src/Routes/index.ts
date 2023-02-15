@@ -9,5 +9,6 @@ const route = Router();
 route.post('/', new CarController(new CarService(new CarODM())).createCar);
 route.get('/', new CarController(new CarService(new CarODM())).getAllCars);
 route.get('/:id', ObjectId.validate, new CarController(new CarService(new CarODM())).getCarById);
+route.put('/:id', ObjectId.validate, new CarController(new CarService(new CarODM())).updateACar);
 
 export default route;
