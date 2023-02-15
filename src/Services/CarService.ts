@@ -27,6 +27,18 @@ class CarService {
 
     return { message: 'Car not found' };
   }
+
+  public async updateACar(id: string, updatedInfoOfCar: ICar): Promise<IServiceReturn> {
+    const car = await this._model.getCarById(id);
+
+    if (!car) return { message: 'Car not found' };
+
+    await this._model.updateACar(id, updatedInfoOfCar);
+
+    const updatedCar = await this._model.getCarById(id);
+
+    return { result: new Car(updatedCar as ICar) };
+  }
 }
 
 export default CarService;
