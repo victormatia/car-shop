@@ -79,4 +79,31 @@ describe('Casos de testes de CarService', function () {
       expect(result).to.be.deep.equal(output);
     },
   );
+
+  it(
+    'Verifica se é possível listar um carro que foi cadastrado no banco de dados',
+    async function () {
+    // Arrange
+
+      const output = new Car({
+        model: 'Ford Mustang',
+        year: 1978,
+        color: 'Black',
+        status: true,
+        buyValue: 23.00,
+        doorsQty: 2,
+        seatsQty: 4,
+        id: '63ebdc573f9ad2a53703c7a1',
+      });
+
+      stub(Model, 'findById').resolves(output);
+
+      // Act
+      const service = new CarService(new CarODM());
+      const { result } = await service.getCarById('63ed8088c3d4c3bdfd688d85');
+
+      // Assertion
+      expect(result).to.be.deep.equal(output);
+    },
+  );
 });
