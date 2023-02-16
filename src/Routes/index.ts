@@ -43,4 +43,10 @@ route.get(
   new MotorcycleController(new MotorcycleService(new MotorcycleODM())).getMotorcycleById,
 );
 
+route.put(
+  '/motorcycles/:id',
+  ObjectId.validate,
+  new MotorcycleController(new MotorcycleService(new MotorcycleODM())).updateMotorcycle,
+);
+
 export default route;
