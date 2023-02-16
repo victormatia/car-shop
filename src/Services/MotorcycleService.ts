@@ -27,6 +27,19 @@ class MotorcycleService {
 
     return { message: 'Motorcycle not found' };
   }
+
+  public async updateMotorcycle(id: string, updatedInfoOfMotorcycle: IMotorcycle)
+    : Promise<IServiceReturn> {
+    const motorcycle = await this._model.getMotorcycleById(id);
+
+    if (!motorcycle) return { message: 'Motorcycle not found' };
+
+    await this._model.updateMotorcycle(id, updatedInfoOfMotorcycle);
+
+    const updatedMotorcycle = await this._model.getMotorcycleById(id);
+
+    return { result: new Motorcycle(updatedMotorcycle as IMotorcycle) };
+  }
 }
 
 export default MotorcycleService;
