@@ -33,6 +33,14 @@ class MotorcycleODM extends AbstractODM<IMotorcycle> {
 
     return motorcycle;
   }
+
+  public async updateMotorcycle(id: string, updatedInfoOfMotorcycle: IMotorcycle) {
+    const updatedMotorcycle = await this.model.updateOne({ id }, {
+      $set: { ...updatedInfoOfMotorcycle },
+    });
+
+    return updatedMotorcycle;
+  }
 }
 
 export default MotorcycleODM;
