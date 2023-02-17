@@ -106,4 +106,38 @@ describe('Casos de testes de CarService', function () {
       expect(result).to.be.deep.equal(output);
     },
   );
+
+  it('Verifica se é possível atualizar um carro no banco de dados', async function () {
+    // Arrange
+    const input: ICar = {
+      model: 'Mareuuuu',
+      year: 2002,
+      color: 'blue',
+      status: true,
+      buyValue: 15.990,
+      doorsQty: 4,
+      seatsQty: 5,
+    };
+
+    const output: Car = new Car({
+      model: 'Mareuuuu',
+      year: 2002,
+      color: 'Black',
+      status: true,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+      id: '63ebdc573f9ad2a53703c7a1',
+    });
+
+    stub(Model, 'findById').resolves(output);
+    stub(Model, 'updateOne').resolves();
+    
+    // Act
+    const service = new CarService(new CarODM());
+    const { result } = await service.updateACar('63ebdc573f9ad2a53703c7a1', input);
+
+    // Assertion
+    expect(result).to.be.deep.equal(output);
+  });
 });
