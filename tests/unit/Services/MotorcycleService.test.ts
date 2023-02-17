@@ -109,4 +109,38 @@ describe('Casos de testes de MotorcycleService', function () {
       expect(result).to.be.deep.equal(output);
     },
   );
+
+  it('Verifica se é possível atualizar um carro no banco de dados', async function () {
+    // Arrange
+    const input: IMotorcycle = {
+      model: 'Honda Cb 700f Hornet',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    }; 
+
+    const output = new Motorcycle({
+      id: '63ed8088c3d4c3bdfd688d85',
+      model: 'Honda Bros 170',
+      year: 2020,
+      color: 'Black',
+      status: true,
+      buyValue: 15,
+      category: 'Trail',
+      engineCapacity: 160,
+    });
+
+    stub(Model, 'findById').resolves(output);
+    stub(Model, 'updateOne').resolves();
+    
+    // Act
+    const service = new MotorcycleService(new MotorcycleODM());
+    const { result } = await service.updateMotorcycle('63ebdc573f9ad2a53703c7a1', input);
+
+    // Assertion
+    expect(result).to.be.deep.equal(output);
+  });
 });
